@@ -1,0 +1,37 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "username": "Felhasználó név (email cím)",
+          "password": "Jelszó"
+        },
+        "description": "Állítsd be a felhasználónevedet és jelszavadat.",
+        "title": "FVM integráció beállítása."
+      }
+    },
+    "abort": {
+      "already_configured": "Ez a FVM felhasználó már beállításra került a rendszerben."
+    },
+    "error": {
+      "invalid_username_or_password": "Hibás felhasználónév vagy jelszó."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "password": "Jelszó"
+        },
+        "description": "Állítsd be a FVM-es jelszavadat. Ha felhasználó nevet szeretnél váltani, akkor távolítsd el az integrációt, majd add hozzá újra!",
+        "title": "FVM integráció beállítása."
+      }
+    },
+    "abort": {
+      "reconfigure_successful": "Beállítás elkészült. Kérlek indítsd újra a Home Assistant-ot!"
+    },
+    "error": {
+      "invalid_username_or_password": "Hibás felhasználónév vagy jelszó."
+    }
+  }
+}

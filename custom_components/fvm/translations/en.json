@@ -1,0 +1,37 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        },
+        "description": "Set username and password.",
+        "title": "Configure FVM integration."
+      }
+    },
+    "abort": {
+      "already_configured": "This account has already been configured."
+    },
+    "error": {
+      "invalid_username_or_password": "Invalid username or password."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "password": "Password"
+        },
+        "description": "Set password. To set username remove the integration and readd.",
+        "title": "Reconfigure FVM integration."
+      }
+    },
+    "abort": {
+      "reconfigure_successful": "Reconfiguration completed. Please restart Home Assistant."
+    },
+    "error": {
+      "invalid_username_or_password": "Invalid username or password."
+    }
+  }
+}
