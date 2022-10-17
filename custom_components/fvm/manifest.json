@@ -4,7 +4,7 @@
   "iot_class": "cloud_polling",
   "documentation": "https://github.com/laszlojakab/homeassistant-fvm#usage",
   "issue_tracker": "https://github.com/laszlojakab/homeassistant-fvm/issues",
-  "dependencies": ["python-dateutil"],
+  "dependencies": [],
   "config_flow": true,
   "version": "0.0.0-alpha",
   "codeowners": ["@laszlojakab"],
