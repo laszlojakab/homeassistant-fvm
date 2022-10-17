@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from typing import Any, Dict, List
 
 from dateutil import tz
-from homeassistant.components.calendar import CalendarEventDevice
+from homeassistant.components.calendar import CalendarEntity, CalendarEvent
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_USERNAME
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -22,7 +22,7 @@ _LOGGER = logging.getLogger(__name__)
 MIN_TIME_BETWEEN_UPDATES = timedelta(days=7)
 
 
-class FvmReadingTimeCalendarEventDevice(CalendarEventDevice):
+class FvmReadingTimeCalendarEventDevice(CalendarEntity):
     '''
     Represents the FVM reading time calendar event device.
     '''
@@ -45,7 +45,7 @@ class FvmReadingTimeCalendarEventDevice(CalendarEventDevice):
         self._attr_name = f'fvm_{meter.location_id}_{meter.meter_serial_number}_dictation_and_reading'
         self._attr_unique_id = f'{config_entry_id}_{meter.location_id}_{meter.meter_serial_number}_dictation_and_reading'
         self._dictation_and_reading_times: List[ReadingTime] = []
-        self._event = None
+        self._event: CalendarEvent | None = None
         self._all_events = []
 
     @property
@@ -70,7 +70,7 @@ class FvmReadingTimeCalendarEventDevice(CalendarEventDevice):
         hass: HomeAssistantType,
         start_date: datetime,
         end_date: datetime
-    ):
+    ) -> List[CalendarEvent]:
         '''
         Return calendar events within a datetime range.
 
@@ -88,7 +88,7 @@ class FvmReadingTimeCalendarEventDevice(CalendarEventDevice):
         start_date = start_date.astimezone(local_zone).replace(tzinfo=None)
         end_date = end_date.astimezone(local_zone).replace(tzinfo=None)
 
-        result: List[Dict[str, Any]] = []
+        result: List[CalendarEvent] = []
         for reading_time in self._dictation_and_reading_times:
             latest_start = max(start_date, reading_time.start)
             earliest_end = min(end_date, reading_time.end)
@@ -106,17 +106,13 @@ class FvmReadingTimeCalendarEventDevice(CalendarEventDevice):
         )
 
     def _get_event(self, reading_time: ReadingTime) -> Dict[str, Any]:
-        return {
-            'start': {
-                'date': reading_time.start.date().isoformat(),
-            },
-            'end': {
-                'date': reading_time.end.date().isoformat(),
-            },
-            'description': reading_time.mode,
-            'summary': f'Fővárosi vízművek - {reading_time.mode}',
-            'location': 'https://ugyfelszolgalat.vizmuvek.hu/'
-        }
+        return CalendarEvent(
+            start=reading_time.start.date(),
+            end=reading_time.end.date(),
+            summary=f"Fővárosi vízművek - {reading_time.mode}",
+            description=reading_time.mode,
+            location="https://ugyfelszolgalat.vizmuvek.hu/",
+        )
 
 
 async def async_setup_entry(
