@@ -2,8 +2,9 @@
 """
 Module for FVM controller.
 """
+from dataclasses import dataclass
 from datetime import datetime
-from typing import List
+from typing import Final, List
 
 from homeassistant.helpers.typing import HomeAssistantType
 
@@ -12,105 +13,40 @@ from custom_components.fvm.const import DATA_CONTROLLER, DOMAIN
 from .fvm_session import FvmCustomerServiceSession
 
 
+@dataclass
 class ReadingTime:
     """
     Represents a meter reading time.
+
+    Attributes:
+        start: The start date of the reading.
+        end: The end date of the reading.
+        mode: The reading mode.
     """
 
-    def __init__(self, start: datetime, end: datetime, mode: str):
-        """
-        Initialize a new instance of ReadingTime class.
+    start: Final[datetime]
+    end: Final[datetime]
+    mode: Final[str]
 
-        Args:
-            start: The start date of the reading.
-            end: The end date of the reading.
-            mode: The reading mode.
-        """
-        self._start = start
-        self._end = end
-        self._mode = mode
-
-    def __str__(self) -> str:
-        return f"{self._start}-{self._end}: {self._mode}"
-
-    @property
-    def start(self) -> datetime:
-        """
-        Gets the reading start date.
-
-        Returns:
-            The reading start date.
-        """
-        return self._start
-
-    @property
-    def end(self) -> datetime:
-        """
-        Gets the reading end date.
-
-        Returns:
-            The reading end date.
-        """
-        return self._end
-
-    @property
-    def mode(self) -> str:
-        """
-        Gets the reading mode.
-
-        Returns:
-            The reading mode.
-        """
-        return self._mode
+    def __repr__(self) -> str:
+        """ Returns the string representation of the class. """
+        return f"{self.start}-{self.end}: {self.mode}"
 
 
+@dataclass
 class LocationAndMeter:
     """
     Represents a location with a meter.
+
+    Attributes:
+        location_name: The name (address) of the location.
+        location_id: The location id. The value of this id is uncertain.
+        meter_serial_number: The meter's serial number.
     """
 
-    def __init__(self, location_name: str, location_id: str, meter_serial_number: str):
-        """
-        Initialize a new instance of LocationAndMeter class.
-
-        Args:
-            location_name: The name (address) of the location.
-            location_id: The location id. The value of this id is uncertain.
-            meter_serial_number: The meter's serial number.
-        """
-        self._location_name = location_name
-        self._location_id = location_id
-        self._meter_serial_number = meter_serial_number
-
-    @property
-    def location_id(self) -> str:
-        """
-        Gets the location id.
-
-        Returns:
-            The location id.
-        """
-        return self._location_id
-
-    @property
-    def meter_serial_number(self) -> str:
-        """
-        Gets the meter's serial number.
-
-        Returns:
-            The meter's serial number.
-        """
-        return self._meter_serial_number
-
-    @property
-    def location_name(self) -> str:
-        """
-        Gets the location name (address).
-
-        Returns:
-            The location name (address).
-        """
-        return self._location_name
+    location_id: Final[str]
+    meter_serial_number: Final[str]
+    location_name: Final[str]
 
 
 class FvmController:
