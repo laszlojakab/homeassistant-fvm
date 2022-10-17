@@ -100,10 +100,13 @@ class FvmReadingTimeCalendarEventDevice(CalendarEntity):
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
     async def _update_dictation_and_reading_times(self):
-        self._dictation_and_reading_times = await self._controller.get_dictation_and_reading_times(
-            self._meter.location_id,
-            self._meter.meter_serial_number
-        )
+        self._dictation_and_reading_times = [
+            reading_time
+            for reading_time in await self._controller.get_dictation_and_reading_times(
+                self._meter.location_id, self._meter.meter_serial_number
+            )
+            if reading_time.end >= datetime.today()
+        ]
 
     def _get_event(self, reading_time: ReadingTime) -> Dict[str, Any]:
         return CalendarEvent(
