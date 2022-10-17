@@ -32,14 +32,10 @@ class FvmReadingTimeCalendarEventDevice(CalendarEntity):
         """
         Initialize a new instance of FvmReadingTimeCalendarEventDevice class.
 
-        Parameters
-        ----------
-        config_entry_id: str
-            The config_entry.entry_id which created the instance.
-        controller: FvmController
-            The FVM controller instance.
-        meter: LocationAndMeter
-            The location and meter information.
+        Args:
+            config_entry_id: The config_entry.entry_id which created the instance.
+            controller: The FVM controller instance.
+            meter:The location and meter information.
         """
         self._controller = controller
         self._meter = meter
@@ -74,14 +70,10 @@ class FvmReadingTimeCalendarEventDevice(CalendarEntity):
         """
         Return calendar events within a datetime range.
 
-        Parameters
-        ----------
-        hass: homeassistant.helpers.typing.HomeAssistantType
-            The Home Assistant instance.
-        start_date: datetime
-            The datetime range start.
-        end_date: datetime
-            The datetime range end.
+        Args:
+            hass: The Home Assistant instance.
+            start_date: The datetime range start.
+            end_date: The datetime range end.
         """
         await self._update_dictation_and_reading_times()
         local_zone = tz.tzlocal()
@@ -126,18 +118,12 @@ async def async_setup_entry(
     """
     Setup of FVM calendars for the specified config_entry.
 
-    Parameters
-    ----------
-    hass: homeassistant.helpers.typing.HomeAssistantType
-        The Home Assistant instance.
-    config_entry: homeassistant.helpers.typing.ConfigEntry
-        The config entry which is used to create sensors.
-    async_add_entities: homeassistant.helpers.entity_platform.AddEntitiesCallback
-        The callback which can be used to add new entities to Home Assistant.
+    Args:
+        hass: The Home Assistant instance.
+        config_entry:  The config entry which is used to create sensors.
+        async_add_entities:  The callback which can be used to add new entities to Home Assistant.
 
-    Returns
-    -------
-    bool
+    Returns:
         The value indicates whether the setup succeeded.
     """
 

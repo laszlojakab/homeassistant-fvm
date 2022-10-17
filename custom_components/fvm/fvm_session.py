@@ -52,16 +52,11 @@ class FvmCustomerServiceSession:
         """
         Posts the login information.
 
-        Parameters
-        ----------
-        username: str
-            The username.
-        password: str
-            The password.
+        Args:
+            username: The username.
+            password: The password.
 
-        Returns
-        -------
-        bool
+        Returns:
             The value indicates whether the login was successful.
         """
         async with self._session.get(
@@ -92,9 +87,7 @@ class FvmCustomerServiceSession:
         """
         Gets the locations and meter serial numbers.
 
-        Returns
-        -------
-        Dict[str, Any]
+        Returns:
             The locations and meter serial numbers.
         """
         async with self._session.get(
@@ -109,16 +102,11 @@ class FvmCustomerServiceSession:
         """
         Gets the dictation and reading times.
 
-        Parameters
-        ----------
-        anlage: str
-            The number of location.
-        serge: str
-            The meter serial number.
+        Args:
+            anlage: The number of location.
+            serge: The meter serial number.
 
-        Returns
-        -------
-        Dict[str, Any]
+        Returns:
             The locations and meter serial numbers.
         """
         async with self._session.get(

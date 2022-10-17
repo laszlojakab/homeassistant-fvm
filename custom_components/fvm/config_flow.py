@@ -21,14 +21,8 @@ class FvmOptionsFlowHandler(OptionsFlow):
         """
         Initialize a new instance of FvmOptionsFlowHandler class.
 
-        Parameters
-        ----------
-        config_entry: homeassistant.config_entries.ConfigEntry
-            The config entry of the integration.
-
-        Returns
-        -------
-        None
+        Args:
+            config_entry: The config entry of the integration.
         """
         self.config_entry = config_entry
 
@@ -36,11 +30,12 @@ class FvmOptionsFlowHandler(OptionsFlow):
         """
         Handles FVM configuration init step.
 
-        Parameters
-        ----------
-        user_input: Dict[str, Any]
-            The dictionary contains the settings entered by the user
-            on the configuration screen.
+        Args:
+            user_input:
+                The dictionary contains the settings entered by the user
+                on the configuration screen.
+        Returns
+            The flow result of the step.
         """
         data_schema = vol.Schema(
             {
@@ -84,21 +79,20 @@ class FvmConfigFlow(ConfigFlow, domain=DOMAIN):
         """
         Gets the options flow handler for the integration.
 
-        Parameters
-        ----------
-        config_entry: homeassistant.config_entries.ConfigEntry
-            The config entry of the integration.
+        Args:
+            config_entry: The config entry of the integration.
 
-        Returns
-        -------
-        FvmOptionsFlowHandler
-            The options flow handler for the integration.
+        Returns: The options flow handler for the integration.
         """
         return FvmOptionsFlowHandler(config_entry)
 
     async def async_step_user(self, user_input: Dict[str, Any]) -> FlowResult:
         """
         Handles the step when integration added from the UI.
+
+        Args:
+            user_input: The inputs filled by the user. 
+            It is `None` when the user enters to the step first time.
         """
         data_schema = vol.Schema(
             {vol.Required(CONF_USERNAME): str, vol.Required(CONF_PASSWORD): str}

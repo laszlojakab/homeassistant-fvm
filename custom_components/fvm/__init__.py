@@ -15,16 +15,11 @@ async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
     """
     Set up the FVM component.
 
-    Parameters
-    ----------
-    hass: homeassistant.helpers.typing.HomeAssistantType
-        The Home Assistant instance.
-    config: homeassistant.helpers.typing.ConfigType
-        The configuration.
+    Args:
+        hass: The Home Assistant instance.
+        config: The configuration.
 
-    Returns
-    -------
-    bool
+    Returns:
         The value indicates whether the setup succeeded.
     """
     hass.data[DOMAIN] = {DATA_CONTROLLER: {}}
@@ -35,16 +30,11 @@ async def async_setup_entry(hass: HomeAssistantType, config_entry: ConfigEntry) 
     """
     Initialize the sensors based on the config entry.
 
-    Parameters
-    ----------
-    hass: homeassistant.helpers.typing.HomeAssistantType
-        The Home Assistant instance.
-    config_entry: homeassistant.config_entries.ConfigEntry
-        The config entry which contains information gathered by the config flow.
+    Args:
+        hass: The Home Assistant instance.
+        config_entry: The config entry which contains information gathered by the config flow.
 
-    Returns
-    -------
-    bool
+    Returns:
         The value indicates whether the setup succeeded.
     """
 

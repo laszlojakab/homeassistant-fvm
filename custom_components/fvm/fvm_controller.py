@@ -21,14 +21,10 @@ class ReadingTime:
         """
         Initialize a new instance of ReadingTime class.
 
-        Parameters
-        ----------
-        start: datetime
-            The start date of the reading.
-        end: datetime
-            The end date of the reading.
-        mode: str
-            The reading mode.
+        Args:
+            start: The start date of the reading.
+            end: The end date of the reading.
+            mode: The reading mode.
         """
         self._start = start
         self._end = end
@@ -42,9 +38,7 @@ class ReadingTime:
         """
         Gets the reading start date.
 
-        Returns
-        -------
-        datetime
+        Returns:
             The reading start date.
         """
         return self._start
@@ -54,9 +48,7 @@ class ReadingTime:
         """
         Gets the reading end date.
 
-        Returns
-        -------
-        datetime
+        Returns:
             The reading end date.
         """
         return self._end
@@ -66,9 +58,7 @@ class ReadingTime:
         """
         Gets the reading mode.
 
-        Returns
-        -------
-        str
+        Returns:
             The reading mode.
         """
         return self._mode
@@ -83,14 +73,10 @@ class LocationAndMeter:
         """
         Initialize a new instance of LocationAndMeter class.
 
-        Parameters
-        ----------
-        location_name: str
-            The name (address) of the location.
-        location_id: str
-            The location id. The value of this id is uncertain.
-        meter_serial_number:
-            The meter's serial number.
+        Args:
+            location_name: The name (address) of the location.
+            location_id: The location id. The value of this id is uncertain.
+            meter_serial_number: The meter's serial number.
         """
         self._location_name = location_name
         self._location_id = location_id
@@ -101,9 +87,7 @@ class LocationAndMeter:
         """
         Gets the location id.
 
-        Returns
-        -------
-        str
+        Returns:
             The location id.
         """
         return self._location_id
@@ -113,9 +97,7 @@ class LocationAndMeter:
         """
         Gets the meter's serial number.
 
-        Returns
-        -------
-        str
+        Returns:
             The meter's serial number.
         """
         return self._meter_serial_number
@@ -125,9 +107,7 @@ class LocationAndMeter:
         """
         Gets the location name (address).
 
-        Returns
-        -------
-        str
+        Returns:
             The location name (address).
         """
         return self._location_name
@@ -142,12 +122,9 @@ class FvmController:
         """
         Initialize a new instance of FvmController class.
 
-        Parameters
-        ----------
-        username: str
-            The registered username (email address).
-        password: str
-            The password for the user.
+        Args:
+            username: The registered username (email address).
+            password: The password for the user.
         """
         self._username = username
         self._password = password
@@ -156,8 +133,7 @@ class FvmController:
         """
         Gets the registered locations and meters for the user.
 
-        Returns
-        List[LocationAndMeter]
+        Returns:
             The registered locations and meters for the user.
         """
         async with FvmCustomerServiceSession() as session:
@@ -177,15 +153,11 @@ class FvmController:
         """
         Gets the dictation and reading times for the specified meter.
 
-        Parameters
-        ----------
-        location_id: str
-            The location id.
-        meter_serial_number: str
-            The meter's serial number.
+        Args:
+            location_id: The location id.
+            meter_serial_number: The meter's serial number.
 
-        Returns
-        List[ReadingTime]
+        Returns:
             The reading times for the specified meter.
         """
         async with FvmCustomerServiceSession() as session:
@@ -214,14 +186,10 @@ def set_controller(
     """
     Sets the controller instance for the specified username in Home Assistant data container.
 
-    Parameters
-    ----------
-    hass: homeassistant.helpers.typing.HomeAssistantType
-        The Home Assistant instance.
-    user_name: str
-        The registered username.
-    controller: FvmController
-        The controller instance to set.
+    Args:
+        hass: The Home Assistant instance.
+        user_name: The registered username.
+        controller: The controller instance to set.
     """
     hass.data[DOMAIN][DATA_CONTROLLER][user_name] = controller
 
@@ -230,16 +198,11 @@ def get_controller(hass: HomeAssistantType, user_name: str) -> FvmController:
     """
     Gets the controller instance for the specified username from Home Assistant data container.
 
-    Parameters
-    ----------
-    hass: homeassistant.helpers.typing.HomeAssistantType
-        The Home Assistant instance.
-    user_name: str
-        The registered username.
+    Args:
+        hass: The Home Assistant instance.
+        user_name: The registered username.
 
-    Returns
-    -------
-    FvmController
+    Returns:
         The controller associated to the specified username.
     """
     return hass.data[DOMAIN][DATA_CONTROLLER].get(user_name)
@@ -250,16 +213,11 @@ def is_controller_exists(hass: HomeAssistantType, user_name: str) -> bool:
     Gets the value indicates whether a controller associated to the specified
     username in Home Assistant data container.
 
-    Parameters
-    ----------
-    hass: homeassistant.helpers.typing.HomeAssistantType
-        The Home Assistant instance.
-    user_name: str
-        The registered username.
+    Args:
+        hass: The Home Assistant instance.
+        user_name: The registered username.
 
-    Returns
-    -------
-    bool
+    Returns:
         The value indicates whether a controller associated to the specified
         username in Home Assistant data container.
     """
