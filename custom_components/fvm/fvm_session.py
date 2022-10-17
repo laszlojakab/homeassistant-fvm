@@ -1,4 +1,3 @@
-# pylint: disable=bad-continuation
 """
 Module for FVM session.
 """
@@ -133,5 +132,6 @@ class FvmCustomerServiceSession:
             ) as reading_list_response:
                 return await reading_list_response.json()
 
-    def _get_timestamp(self):
+    @classmethod
+    def _get_timestamp(cls):
         return round(datetime.now().timestamp() * 1000)

@@ -1,4 +1,3 @@
-# pylint: disable=bad-continuation
 """
 Module for FVM controller.
 """
@@ -9,8 +8,7 @@ from typing import Final, List
 from homeassistant.helpers.typing import HomeAssistantType
 
 from custom_components.fvm.const import DATA_CONTROLLER, DOMAIN
-
-from .fvm_session import FvmCustomerServiceSession
+from custom_components.fvm.fvm_session import FvmCustomerServiceSession
 
 
 @dataclass
@@ -24,12 +22,15 @@ class ReadingTime:
         mode: The reading mode.
     """
 
+    # pylint: disable=invalid-name
     start: Final[datetime]
+    # pylint: disable=invalid-name
     end: Final[datetime]
+    # pylint: disable=invalid-name
     mode: Final[str]
 
     def __repr__(self) -> str:
-        """ Returns the string representation of the class. """
+        """Returns the string representation of the class."""
         return f"{self.start}-{self.end}: {self.mode}"
 
 
@@ -44,8 +45,11 @@ class LocationAndMeter:
         meter_serial_number: The meter's serial number.
     """
 
+    # pylint: disable=invalid-name
     location_id: Final[str]
+    # pylint: disable=invalid-name
     meter_serial_number: Final[str]
+    # pylint: disable=invalid-name
     location_name: Final[str]
 
 

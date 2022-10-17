@@ -1,17 +1,17 @@
-# pylint: disable=bad-continuation
 """
 The configuration flow module for FVM integration.
 """
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
 import voluptuous as vol
-from homeassistant.config_entries import HANDLERS, ConfigEntry, ConfigFlow, OptionsFlow
+from homeassistant.config_entries import (HANDLERS, ConfigEntry, ConfigFlow,
+                                          OptionsFlow)
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 
-from .const import DOMAIN
-from .fvm_session import FvmCustomerServiceSession
+from custom_components.fvm.const import DOMAIN
+from custom_components.fvm.fvm_session import FvmCustomerServiceSession
 
 
 class FvmOptionsFlowHandler(OptionsFlow):
@@ -86,12 +86,14 @@ class FvmConfigFlow(ConfigFlow, domain=DOMAIN):
         """
         return FvmOptionsFlowHandler(config_entry)
 
-    async def async_step_user(self, user_input: Dict[str, Any]) -> FlowResult:
+    async def async_step_user(
+        self, user_input: Union[dict[str, Any], None] = None
+    ) -> FlowResult:
         """
         Handles the step when integration added from the UI.
 
         Args:
-            user_input: The inputs filled by the user. 
+            user_input: The inputs filled by the user.
             It is `None` when the user enters to the step first time.
         """
         data_schema = vol.Schema(
