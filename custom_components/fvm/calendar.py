@@ -1,7 +1,6 @@
 """
 The calendar module for FVM integration.
 """
-# pylint: disable=bad-continuation
 import logging
 from datetime import datetime, timedelta
 from typing import Any, Dict, List
@@ -14,7 +13,9 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import HomeAssistantType
 from homeassistant.util import Throttle
 
-from .fvm_controller import FvmController, LocationAndMeter, ReadingTime, get_controller
+from custom_components.fvm.fvm_controller import (FvmController,
+                                                  LocationAndMeter,
+                                                  ReadingTime, get_controller)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -42,7 +43,10 @@ class FvmReadingTimeCalendarEventDevice(CalendarEntity):
         self._attr_name = (
             f"fvm_{meter.location_id}_{meter.meter_serial_number}_dictation_and_reading"
         )
-        self._attr_unique_id = f"{config_entry_id}_{meter.location_id}_{meter.meter_serial_number}_dictation_and_reading"
+        self._attr_unique_id = (
+            f"{config_entry_id}_{meter.location_id}"
+            "_{meter.meter_serial_number}_dictation_and_reading"
+        )
         self._dictation_and_reading_times: List[ReadingTime] = []
         self._event: CalendarEvent | None = None
         self._all_events = []
@@ -100,7 +104,8 @@ class FvmReadingTimeCalendarEventDevice(CalendarEntity):
             if reading_time.end >= datetime.today()
         ]
 
-    def _get_event(self, reading_time: ReadingTime) -> Dict[str, Any]:
+    @classmethod
+    def _get_event(cls, reading_time: ReadingTime) -> Dict[str, Any]:
         return CalendarEvent(
             start=reading_time.start.date(),
             end=reading_time.end.date(),

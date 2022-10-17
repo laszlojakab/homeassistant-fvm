@@ -6,8 +6,10 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.helpers.typing import ConfigType, HomeAssistantType
 
-from .const import DATA_CONTROLLER, DOMAIN
-from .fvm_controller import FvmController, is_controller_exists, set_controller
+from custom_components.fvm.const import DATA_CONTROLLER, DOMAIN
+from custom_components.fvm.fvm_controller import (FvmController,
+                                                  is_controller_exists,
+                                                  set_controller)
 
 
 # pylint: disable=unused-argument

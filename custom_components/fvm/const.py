@@ -1,5 +1,5 @@
 """
-Constants for Fűvárosi Vízművek integration.
+Constants for Fővárosi Vízművek integration.
 """
 DOMAIN = "fvm"
 
