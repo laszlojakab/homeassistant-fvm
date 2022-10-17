@@ -1,6 +1,6 @@
-'''
+"""
 Constants for Fűvárosi Vízművek integration.
-'''
-DOMAIN = 'fvm'
+"""
+DOMAIN = "fvm"
 
-DATA_CONTROLLER = 'controller'
+DATA_CONTROLLER = "controller"
