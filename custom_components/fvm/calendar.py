@@ -2,8 +2,8 @@
 The calendar module for FVM integration.
 """
 import logging
-from datetime import datetime, timedelta
-from typing import Any, Dict, List
+from datetime import date, datetime, timedelta
+from typing import Any, Dict, List, cast
 
 from dateutil import tz
 from homeassistant.components.calendar import CalendarEntity, CalendarEvent
@@ -96,13 +96,13 @@ class FvmReadingTimeCalendarEventDevice(CalendarEntity):
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
     async def _update_dictation_and_reading_times(self):
-        self._dictation_and_reading_times = [
+        self._dictation_and_reading_times = sorted([
             reading_time
             for reading_time in await self._controller.get_dictation_and_reading_times(
                 self._meter.location_id, self._meter.meter_serial_number
             )
-            if reading_time.end >= datetime.today()
-        ]
+            if reading_time.end.date() >= date.today()
+        ], key=lambda reading_time: cast(ReadingTime, reading_time).start)
 
     @classmethod
     def _get_event(cls, reading_time: ReadingTime) -> Dict[str, Any]:
